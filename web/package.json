@@ -1,0 +1,36 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "admin:promote": "node --env-file=.env.local scripts/promote-admin.mjs",
+    "provision:device": "node --env-file=.env.local scripts/provision-device.mjs",
+    "db:check": "node --env-file=.env.local scripts/check-setup.mjs",
+    "simulate:device": "node --env-file=.env.local scripts/simulate-device.mjs",
+    "selftest": "node --env-file=.env.local scripts/selftest-device-api.mjs",
+    "check:firmware": "node --env-file=.env.local scripts/check-firmware-config.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.3",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

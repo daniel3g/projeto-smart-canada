@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/*
+ * Tokens claros e escuros. O painel fica em exposição, muitas vezes em tela
+ * grande e em sala clara, então o tema claro é o padrão e o escuro acompanha
+ * a preferência do sistema.
+ */
+:root {
+  --background: #f6f7f9;
+  --foreground: #16181d;
+  --surface: #ffffff;
+  --surface-muted: #eef0f4;
+  --border: #d9dde4;
+  --muted: #5d6673;
+  --accent: #1f6feb;
+  --online: #10785a;
+  --online-soft: #e2f4ec;
+  --offline: #9a3030;
+  --offline-soft: #fbe9e9;
+  --pending: #8a5a00;
+  --pending-soft: #fdf1dc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0d1014;
+    --foreground: #e8eaee;
+    --surface: #161a20;
+    --surface-muted: #1e242c;
+    --border: #2a313a;
+    --muted: #98a2b1;
+    --accent: #5a9bff;
+    --online: #4cd4a6;
+    --online-soft: #112a23;
+    --offline: #ff8d8d;
+    --offline-soft: #2b1618;
+    --pending: #e8b464;
+    --pending-soft: #2a2114;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-edge: var(--border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-online: var(--online);
+  --color-online-soft: var(--online-soft);
+  --color-offline: var(--offline);
+  --color-offline-soft: var(--offline-soft);
+  --color-pending: var(--pending);
+  --color-pending-soft: var(--pending-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
