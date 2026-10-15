@@ -31,9 +31,13 @@ export async function GET(
     // não atrasa nada perceptível e faz vários visitantes simultâneos
     // compartilharem uma única invocação de função. Seguro porque a projeção é
     // pública e não depende de quem pergunta — nada aqui varia por sessão.
+    // `max-age=0` é para o navegador, `s-maxage=3` para a CDN. Sem o primeiro,
+    // um navegador pode cachear por heurística própria e mostrar leitura
+    // velha; o painel pede `no-store` no fetch, mas quem abrir a rota direto
+    // não tem essa proteção.
     response.headers.set(
       "Cache-Control",
-      "public, s-maxage=3, stale-while-revalidate=10",
+      "public, max-age=0, s-maxage=3, stale-while-revalidate=10",
     );
 
     return response;

@@ -16,16 +16,31 @@ export function unitSymbol(unit: string | null): string | null {
   return UNIT_SYMBOL[unit] ?? unit;
 }
 
+/**
+ * Texto de verdadeiro/falso por tipo de sensor. "Detectado" só faz sentido
+ * para som; o resto é estado de ligado/desligado.
+ */
+const BOOLEAN_LABEL: Record<string, readonly [string, string]> = {
+  sound_module: ["Detectado", "Silêncio"],
+  street_lights: ["Ligada", "Desligada"],
+};
+
+const DEFAULT_BOOLEAN_LABEL = ["Ligado", "Desligado"] as const;
+
 export function formatSensorValue(
   value: SensorValue,
   unit: string | null,
+  type?: string,
 ): string {
   if (value === null) {
     return "—";
   }
 
   if (typeof value === "boolean") {
-    return value ? "Detectado" : "Silêncio";
+    const [on, off] =
+      (type && BOOLEAN_LABEL[type]) || DEFAULT_BOOLEAN_LABEL;
+
+    return value ? on : off;
   }
 
   if (typeof value === "number") {

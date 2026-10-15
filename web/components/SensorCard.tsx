@@ -23,7 +23,7 @@ export function SensorCard({
           isBoolean ? "text-2xl" : "text-3xl"
         } font-semibold tracking-tight`}
       >
-        {formatSensorValue(sensor.value, sensor.unit)}
+        {formatSensorValue(sensor.value, sensor.unit, sensor.type)}
       </p>
 
       <p className="mt-3 text-xs text-muted">

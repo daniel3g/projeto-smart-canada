@@ -147,6 +147,18 @@ check(
 );
 check(debugHttp === "0" || debugHttp === "1", "DEBUG_HTTP", debugHttp ?? "ausente");
 
+// Com validação ligada, o firmware referencia API_ROOT_CA. Sem ele a
+// compilação quebra; avisar aqui é mais claro que um erro de C++.
+if (insecureTls === "0") {
+  check(
+    defines.has("API_ROOT_CA"),
+    "API_ROOT_CA definido",
+    defines.has("API_ROOT_CA")
+      ? undefined
+      : "API_INSECURE_TLS=0 exige o certificado raiz",
+  );
+}
+
 if (deviceKey && deviceKey.length !== 43) {
   // 32 bytes em base64url dão 43 caracteres. Outro tamanho sugere corte na
   // cópia.
