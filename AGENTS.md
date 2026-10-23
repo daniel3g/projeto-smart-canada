@@ -233,6 +233,7 @@ A interface pode exibir nomes em português, mas banco/API usam as chaves estáv
 │   │       ├── admin/               nível admin
 │   │       └── auth/                sessão
 │   ├── components/
+│   ├── public/maquete/  painel 3D da Mostra (build estático do projeto do aluno, só leitura)
 │   ├── lib/
 │   │   ├── api/        envelope de erro, validação, limite de tentativas
 │   │   ├── auth/       requireAdmin

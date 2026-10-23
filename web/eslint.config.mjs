@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Build pronto do painel 3D da Mostra (gerado no projeto do aluno).
+    "public/maquete/**",
   ]),
 ]);
 

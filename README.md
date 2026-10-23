@@ -224,6 +224,29 @@ Detalhes em `AGENTS.md` e `DATABASE.md`.
 - histórico preparado para gráficos;
 - arquitetura pronta para novos sensores e atuadores.
 
+## Painel 3D da Mostra
+
+Em `/maquete` (https://projeto-smart-canada.vercel.app/maquete) fica o painel 3D feito pelo aluno
+Samuel (repositório `dashboard-mostra-internacional`, branch `integracao-professor`), publicado
+junto com este site.
+
+- É um **build estático** em `web/public/maquete/`. Não tem rota de API própria, segredo nem login.
+- Lê só a leitura pública `GET /api/devices/esp32-city-01`, a cada 10 s e só com a aba visível,
+  como qualquer visitante.
+- Mostra só o que este painel já tem: temperatura, umidade, LED principal, iluminação da rua,
+  luminosidade, som e se a placa está online (com a hora da última leitura). Não comanda nada:
+  o LED continua só aqui, com login de admin.
+- `/maquete?modo=cartoes` abre sem o 3D (para computador fraco). Celular abre os cartões sozinho.
+
+Para atualizar, no projeto do aluno:
+
+```bash
+npm run build:nuvem          # gera entrega/maquete com base /maquete/
+```
+
+Depois troque o conteúdo de `web/public/maquete/` pelo de `entrega/maquete/` e faça push.
+O `rewrite` de `/maquete` está em `web/next.config.ts`.
+
 ## Segurança
 
 Não fazer port forwarding para o ESP32.

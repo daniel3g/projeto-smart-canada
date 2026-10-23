@@ -41,6 +41,10 @@ O dashboard possui duas áreas:
 
 Um visitante anônimo vê o estado atual de um atuador, mas não recebe nenhum controle capaz de alterá-lo.
 
+Há um segundo front-end só de leitura: o painel 3D da Mostra, em `/maquete`. É um build estático
+(`web/public/maquete/`, gerado no projeto do aluno) que consome `GET /api/devices/:deviceKey` como um
+visitante: não ganha rota, segredo nem permissão nova. Ver README "Painel 3D da Mostra".
+
 O dashboard não deve conhecer GPIOs. Ele trabalha com chaves semânticas:
 
 ```text
@@ -201,6 +205,10 @@ Isso não cabe em plano gratuito. Três decisões resolveram:
 
 O custo é a latência do primeiro clique: até um ciclo de repouso. Depois dele a
 janela rápida está aberta e os cliques seguintes são imediatos.
+
+O painel 3D da Mostra (`/maquete`) lê a rota pública a cada 10 s, só com a aba visível:
+360 leituras por hora por tela aberta, divididas pelo cache de 3 s da CDN quando há várias.
+Um dia de evento de 8 horas com uma TV dá ~2.900, o mesmo que a placa gasta por dia.
 
 ## Reconciliação de estado
 
