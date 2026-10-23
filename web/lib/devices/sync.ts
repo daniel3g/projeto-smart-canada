@@ -2,6 +2,7 @@ import "server-only";
 
 import { ApiError } from "@/lib/api/errors";
 import {
+  SYNC_DELIVERED_TIMEOUT_MS,
   SYNC_FAST_POLL_MS,
   SYNC_FAST_WINDOW_MS,
   SYNC_IDLE_POLL_MS,
@@ -296,6 +297,27 @@ async function resolvePollInterval(
   }
 
   const supabase = supabaseAdmin();
+
+  // Entregue e nunca confirmado dentro do prazo: a resposta se perdeu no
+  // caminho. Vira `expired` para não prender a janela rápida para sempre.
+  // Ver SYNC_DELIVERED_TIMEOUT_MS.
+  const deadline = new Date(
+    Date.now() - SYNC_DELIVERED_TIMEOUT_MS,
+  ).toISOString();
+
+  const { error: expireError } = await supabase
+    .from("commands")
+    .update({
+      status: "expired",
+      error_message: "no ack within delivery timeout",
+    })
+    .eq("device_id", deviceId)
+    .eq("status", "delivered")
+    .lt("delivered_at", deadline);
+
+  if (expireError) {
+    throw expireError;
+  }
 
   // Comando aguardando entrega ou confirmação é trabalho em aberto.
   const { data: outstanding, error } = await supabase

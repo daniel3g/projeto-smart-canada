@@ -168,6 +168,12 @@ Um id que não pertence ao dispositivo autenticado não atualiza nada, e o ciclo
 segue normalmente: derrubar a requisição por causa de um id inválido tiraria o
 dispositivo do ar por um erro inofensivo.
 
+Comando entregue e não confirmado em 2 minutos vira `expired`
+(`SYNC_DELIVERED_TIMEOUT_MS`). A entrega é marcada antes de a resposta chegar
+ao ESP32; se ela se perde (timeout logo depois de reconectar), sem esse prazo o
+comando ficava em aberto para sempre e prendia a janela rápida de 1 s. O estado
+do atuador não depende disso: a reconciliação abaixo corrige.
+
 ### Reconciliação
 
 Comandos são consumidos uma vez: entregues, viram `delivered`. Isso falha em

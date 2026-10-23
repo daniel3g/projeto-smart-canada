@@ -32,6 +32,18 @@ export const SYNC_FAST_POLL_MS = 1_000;
  */
 export const SYNC_FAST_WINDOW_MS = 60_000;
 
+/**
+ * Prazo para o dispositivo confirmar um comando entregue.
+ *
+ * A entrega é marcada antes de a resposta chegar ao ESP32. Se ela se perde
+ * (timeout de 5 s do firmware logo depois de reconectar, função fria), o
+ * comando nunca é confirmado e, sem prazo, ficava `delivered` para sempre,
+ * segurando a janela rápida de 1 s indefinidamente (visto em 23/10: ~40 mil
+ * requisições por dia). Depois do prazo ele vira `expired`. O estado do
+ * atuador não depende disso: a reconciliação desejado/real corrige.
+ */
+export const SYNC_DELIVERED_TIMEOUT_MS = 120_000;
+
 /** Comandos entregues por ciclo. */
 export const SYNC_MAX_COMMANDS = 20;
 
